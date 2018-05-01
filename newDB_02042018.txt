@@ -1,0 +1,81 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb` ;
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`henkilo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`henkilo` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`henkilo` (
+  `idhenkilo` INT NOT NULL AUTO_INCREMENT,
+  `etunimi` VARCHAR(20) NOT NULL,
+  `sukunimi` VARCHAR(30) NOT NULL,
+  `syntaika` DATE NOT NULL,
+  `tuntipalkka` VARCHAR(15) NOT NULL,
+  `lahiosoite` VARCHAR(45) NOT NULL,
+  `postinro` VARCHAR(5) NOT NULL,
+  `kaupunki` VARCHAR(45) NOT NULL,
+  `puhnro` VARCHAR(15) NULL,
+  `veronro` VARCHAR(15) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `salasana` VARCHAR(100) NOT NULL,
+  `admin` BOOLEAN NOT NULL,
+  PRIMARY KEY (`idhenkilo`),
+  UNIQUE INDEX `idhenkilo_UNIQUE` (`idhenkilo` ASC),
+  UNIQUE INDEX `tunnus_UNIQUE` (`email` ASC))
+ENGINE = InnoDB AUTO_INCREMENT=100;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`tuntiseuranta`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`tuntiseuranta` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`tuntiseuranta` (
+  `idtuntiseuranta` INT NOT NULL AUTO_INCREMENT,
+  `pvm` DATE NOT NULL,
+  `tyokohde` VARCHAR(80) NOT NULL,
+  `tunnit` INT NOT NULL,
+  `ylityo` INT NULL,
+  `km` DOUBLE NULL,
+  `kmselite` VARCHAR(200) NULL,
+  `henkilo_idhenkilo` INT NOT NULL,
+  PRIMARY KEY (`idtuntiseuranta`, `henkilo_idhenkilo`),
+  UNIQUE INDEX `idtuntiseuranta_UNIQUE` (`idtuntiseuranta` ASC),
+  INDEX `fk_tuntiseuranta_henkilo_idx` (`henkilo_idhenkilo` ASC),
+  CONSTRAINT `fk_tuntiseuranta_henkilo`
+    FOREIGN KEY (`henkilo_idhenkilo`)
+    REFERENCES `mydb`.`henkilo` (`idhenkilo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`henkilo`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`henkilo` (`idhenkilo`, `etunimi`, `sukunimi`, `syntaika`,`tuntipalkka`, `lahiosoite`, `postinro`, `kaupunki`, `puhnro`, `veronro`, `email`, `salasana`, `admin`) VALUES (DEFAULT, 'Mika', 'Lindh', '1700-05-09', '17.50', 'Jokukuja', '01200', 'Vantaa', '0505555559', '856813312382', 'mika.lindh@live.com', 'mika', 'true');
+INSERT INTO `mydb`.`henkilo` (`idhenkilo`, `etunimi`, `sukunimi`, `syntaika`,`tuntipalkka`, `lahiosoite`, `postinro`, `kaupunki`, `puhnro`, `veronro`, `email`, `salasana`, `admin`) VALUES (DEFAULT, 'Jonna', 'Partanen', '1715-05-25','18.50','Jokutie ', '01300', 'Vantaa', '0455432155', '987613131232', 'jonna.partanen@student.laurea.fi', 'jonna', 'false');
+
+COMMIT;
+

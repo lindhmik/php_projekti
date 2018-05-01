@@ -1,0 +1,5 @@
+**************************************************************************************************************
+Raportti ajalta: 2018-04-01 - 2018-04-23			 TTL Oy 
+HenkiloID	sukunimi	etunimi	pvm	tyokohde	tunnit	ylityo	km	kmselite	
+**************************************************************************************************************
+100	Lindh	Mika	2018-04-23	Harmokuja 6	8	0	12	Harmokuja-Tikkurilantie-Harmokuja	
